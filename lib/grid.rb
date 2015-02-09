@@ -10,4 +10,12 @@ class Grid
              }
   end
 
+  def cell_exist?(location)
+    cells.has_key?(location)
+  end
+
+  def cell_empty?(location)
+    cells[location] == :~
+  end
+
 end
