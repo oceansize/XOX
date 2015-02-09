@@ -1,9 +1,10 @@
-class Player
+class Player 
 
-  attr_reader :marker
+  attr_accessor :name, :marker
 
-  def initialize(marker = :x)
-    @marker = marker
+  def initialize
+    @marker = :x
+    @name   = "Computer"
   end
 
 end
