@@ -3,19 +3,15 @@ class Grid
   attr_reader :cells
 
   def initialize
-    @cells = {
-               A1: :~, A2: :~, A3: :~,
-               B1: :~, B2: :~, B3: :~,
-               C1: :~, C2: :~, C3: :~
-             }
+    @cells = [1,2,3,4,5,6,7,8,9]
   end
 
   def cell_exist?(location)
-    cells.has_key?(location)
+    !cells[location].nil?
   end
 
   def cell_empty?(location)
-    cells[location] == :~
+    cells[location].is_a? Integer
   end
 
 end

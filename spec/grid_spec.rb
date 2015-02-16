@@ -9,20 +9,20 @@ describe Grid do
   end
 
   it 'knows when a cell is in bounds' do
-    expect(grid.cell_exist?(:A1)).to be true
+    expect(grid.cell_exist?(8)).to be true
   end
 
   it 'knows when a cell is out of bounds' do
-    expect(grid.cell_exist?(:Z2)).to be false
+    expect(grid.cell_exist?(9)).to be false
   end
 
   it 'knows when a cell is empty' do
-    expect(grid.cell_empty?(:A1)).to be true
+    expect(grid.cell_empty?(0)).to be true
   end
 
   it 'knows when a cell is occupied' do
-    grid.cells[:B2] = :x
-    expect(grid.cell_empty?(:B2)).to be false
+    grid.cells[0] = :x
+    expect(grid.cell_empty?(0)).to be false
   end
 
 end
