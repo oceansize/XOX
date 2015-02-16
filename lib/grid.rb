@@ -3,7 +3,7 @@ class Grid
   attr_reader :cells
 
   def initialize
-    @cells = [1,2,3,4,5,6,7,8,9]
+    @cells = (1..9).to_a
   end
 
   def cell_exist?(location)
