@@ -2,7 +2,16 @@ class Game
 
   attr_reader :player_1, :player_2, :turn, :grid
 
-  WINNING_COMBOS = [0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]
+  WINNING_COMBOS = {
+    top_row: [0,1,2],
+    middle_row: [3,4,5],
+    bottom_row: [6,7,8],
+    left_col: [0,3,6],
+    middle_col: [1,4,7],
+    right_col: [2,5,8],
+    left_right_diag:[0,4,8],
+    right_left_diag: [2,4,6]
+  }
 
   def initialize(grid)
     @ready = false
@@ -29,22 +38,20 @@ class Game
     switch_turn
   end
 
-  def winner? player
-    Game::WINNING_COMBOS.each do |combo|
-      # iterates over the combo to compare to grid
-      
-      row_contents = marker_counter_in(row_of_three)
-      return true if row_contents[player.marker] == 3
+  def winner?(player)
+    WINNING_COMBOS.each_value do |combo|
+      row_to_inspect = grid_slicer(combo)
+      return true if row_filled_by_same?(player, row_to_inspect)
     end
     return false
   end
 
-end
+  def grid_slicer(row)
+    grid.cells[row.first..row.last]
+  end
 
-private
+  def row_filled_by_same?(player, row)
+    row.uniq.count == 1 && row.first == player.marker
+  end
 
-def marker_counter_in(row_of_three)
-  marker_count = Hash.new 0
-  row_of_three.each { |cell_content| marker_count[cell_content] += 1 }
-  marker_count
 end

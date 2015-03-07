@@ -1,10 +1,10 @@
 require 'game'
 
 describe Game do
-  let(:game){Game.new(grid)}
-  let(:grid){double :grid, cells: (1..9).to_a }
-  let(:player_1){double :player_1, marker: :x }
-  let(:player_2){double :player_2}
+  let(:game) { Game.new(grid) }
+  let(:grid) { double :grid, cells: (1..9).to_a }
+  let(:player_1) { double :player_1, marker: :x }
+  let(:player_2) { double :player_2 }
 
 # add test for grid
 
@@ -72,14 +72,24 @@ describe Game do
       expect{ game.go(0, player_1) }.to raise_error("Game Over!")
     end
 
+    it "can check a row against a player marker" do
+      rigged_layout = [:x, :x, :x]
+      expect(game.row_filled_by_same?(player_1, rigged_layout)).to be true
+    end
+
+    it "can slice a grid up into rows" do
+      sample_row = [6,7,8]
+      expect(game.grid_slicer(sample_row)).to eq [7,8,9]
+    end
+
     it "should know if there is not a winner" do
       expect(game.winner?(player_1)).to be false
     end
 
     it "should know if there is a winner" do
-      rigged_layout = [player_1, player_1, player_1, 4, 5, 6, 7, 8, 9]
+      rigged_layout = [:x, :x, :x, 4, 5, 6, 7, 8, 9]
       expect(grid).to receive(:cells).and_return(rigged_layout)
-      expect(game.winner?(rigged_layout)).to be true
+      expect(game.winner?(player_1)).to be true
     end
 
   end
